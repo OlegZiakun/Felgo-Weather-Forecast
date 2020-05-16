@@ -1,8 +1,6 @@
 # allows to add DEPLOYMENTFOLDERS and links to the Felgo library and QtCreator auto-completion
 CONFIG += felgo
 
-LIBS += -L"vendor/curl/lib" -lcurl
-
 # uncomment this line to add the Live Client Module and use live reloading with your custom C++ code
 # for the remaining steps to build a custom Live Code Reload app see here: https://felgo.com/custom-code-reload-app/
 # CONFIG += felgo-live
@@ -41,6 +39,7 @@ RESOURCES += #    resources.qrc # uncomment for publishing
 
 # The .cpp file which was generated for your project. Feel free to hack it.
 SOURCES += main.cpp \
+    parser.cpp \
     weatherreceiver.cpp
 
 
@@ -63,6 +62,7 @@ macx {
 }
 
 HEADERS += \
+    parser.h \
     weatherreceiver.h
 
 DISTFILES += \
