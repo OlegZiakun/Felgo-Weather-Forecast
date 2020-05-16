@@ -31,42 +31,39 @@ Page {
 
         Column
         {
-            //anchors.fill: parent
+            id: column
             spacing: 10
-            //   Layout.alignment: Qt.AlignHCenter
             anchors.centerIn: parent
+            height: parent.height / 2
 
             AppText {
                 id: appText
                 width: parent.width
-                //anchors.centerIn: parent
                 text: qsTr("Add Location")
                 horizontalAlignment: Text.AlignHCenter
                 fontSize: 28
             }
 
-            //            Column
-            //            {
-            // anchors.fill: page
-
-            // Layout.alignment: Qt.AlignHCenter
-
-            //anchors.centerIn: page
-
             SearchBar {
                 id: searchBar
                 width: page.width / 1.3
-
-                //anchors.centerIn: parent
             }
 
             AppButton {
                 id: appButton
                 text:  qsTr("Add")
+                antialiasing: true
+                anchors.right: parent.right
+                icon: qsTr("")
+                rippleEffect: true
+
+                onClicked: {
+                    page.visible = false
+                    weatherMainPage.visible = true
+                }
             }
         }
     }
-    //}
 }
 
 /*##^##

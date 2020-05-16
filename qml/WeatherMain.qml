@@ -20,6 +20,6 @@ App {
     Theme.normalFont = normalFont
   }
 
-  AddLocationPage {}
-//  WeatherMainPage {}
+  AddLocationPage {id: addLocationPage}
+  WeatherMainPage {id: weatherMainPage}
 }

@@ -5,6 +5,7 @@ import Felgo 3.0
 
 Page {
   id: page
+  visible: false
   property var today: alldata[currentIndex]
   property int currentIndex: 0
 
