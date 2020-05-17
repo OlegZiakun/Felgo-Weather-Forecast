@@ -3,15 +3,20 @@ import QtQuick.Controls 1.2
 
 import Felgo 3.0
 
+import com.OlegZiakun 1.0
+
 Page {
     id: page
     visible: false
     property var today: alldata[currentIndex]
     property int currentIndex: 0
+    property alias cityText: cityText.text
+
+    WeatherData { id: weatherData }
 
     property var alldata: [
-        { temperature: 12, description: qsTr("Foggy") },
-        { temperature: 32, description: qsTr("Sunny") }
+        { temperature: weatherData.currentTemperature, description: qsTr("Foggy") },
+        { temperature: weatherData.currentTemperature, description: qsTr("Sunny") }
     ]
 
     // Background
@@ -63,14 +68,17 @@ Page {
 
         // City
         AppText {
-            text: "Vienna, AT"
+            id: cityText
             font.pixelSize: sp(22)
             anchors.horizontalCenter: parent.horizontalCenter
         }
 
         AppButton {
             text: "Receive"
-            onClicked: weatherReceiverObject.getCurrent("TEXT FROM QML!")
+            onClicked: {
+                weatherData.location = cityText.text
+                weatherReceiverObject.getCurrent(weatherData)
+            }
         }
     }
 
@@ -85,7 +93,7 @@ Page {
 
             property int temperature: today.temperature
 
-            Component.onCompleted: text = temperature
+            Component.onCompleted: text = temperature + "°"
 
             font.pixelSize: sp(140)
             anchors.horizontalCenter: parent.horizontalCenter
@@ -104,11 +112,11 @@ Page {
                     var currentTemp = parseInt(tempText.text)
 
                     if (tempText.temperature > currentTemp) {
-                        tempText.text = ++currentTemp
+                        tempText.text = ++currentTemp + "°"
                         restart()
                     }
                     else if (tempText.temperature < currentTemp) {
-                        tempText.text = --currentTemp
+                        tempText.text = --currentTemp + "°"
                         restart()
                     }
                 }

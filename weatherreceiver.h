@@ -1,6 +1,8 @@
 #ifndef WEATHERRECEIVER_H
 #define WEATHERRECEIVER_H
 
+#include "parser.h"
+
 #include <QObject>
 #include <QNetworkAccessManager>
 #include <QNetworkRequest>
@@ -13,12 +15,12 @@ public:
     WeatherReceiver();
 
 public slots:
-    void getCurrent(const QString &text);
+    void getCurrent(WeatherData* weatherData);
 
 private:
     QScopedPointer<QNetworkAccessManager> manager;
     QNetworkRequest networkRequest;
-
+    Parser parser;
 };
 
 #endif // WEATHERRECEIVER_H

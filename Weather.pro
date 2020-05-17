@@ -40,6 +40,8 @@ RESOURCES += #    resources.qrc # uncomment for publishing
 # The .cpp file which was generated for your project. Feel free to hack it.
 SOURCES += main.cpp \
     parser.cpp \
+    settings.cpp \
+    weatherdata.cpp \
     weatherreceiver.cpp
 
 
@@ -63,6 +65,8 @@ macx {
 
 HEADERS += \
     parser.h \
+    settings.h \
+    weatherdata.h \
     weatherreceiver.h
 
 DISTFILES += \

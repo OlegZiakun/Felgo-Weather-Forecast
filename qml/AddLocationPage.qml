@@ -44,9 +44,11 @@ Page {
                 fontSize: 28
             }
 
-            SearchBar {
-                id: searchBar
+            AppTextField {
+                id: cityEdit
+                color: "black"
                 width: page.width / 1.3
+                text: "Ivano-Frankivsk"
             }
 
             AppButton {
@@ -60,6 +62,7 @@ Page {
                 onClicked: {
                     page.visible = false
                     weatherMainPage.visible = true
+                    weatherMainPage.cityText = cityEdit.text
                 }
             }
         }
