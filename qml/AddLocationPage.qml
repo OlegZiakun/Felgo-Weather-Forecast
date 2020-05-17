@@ -62,7 +62,7 @@ Page {
                 onClicked: {
                     page.visible = false
                     weatherMainPage.visible = true
-                    weatherMainPage.cityText = cityEdit.text
+                    weatherMainPage.location = cityEdit.text
                 }
             }
         }

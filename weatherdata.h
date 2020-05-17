@@ -6,6 +6,9 @@
 struct Data
 {
     double currentTemperature = 0;
+    int humidity = 0;
+    QString country;
+    QString weatherDescription;
 };
 
 class WeatherData : public QObject

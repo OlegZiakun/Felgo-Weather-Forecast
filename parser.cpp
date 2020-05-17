@@ -15,31 +15,33 @@ void Parser::parse(WeatherData* weatherData, const QString &content)
     Data data;
     const QJsonDocument &jsonResponse = QJsonDocument::fromJson(content.toUtf8());
     const QJsonObject &jsonObject = jsonResponse.object();
-    const QJsonArray &jsonArray = jsonObject["weather"].toArray();
+    const QJsonArray &weather = jsonObject["weather"].toArray();
 
-    const QJsonObject &coord = jsonObject["coord"].toObject();
+    //const QJsonObject &coord = jsonObject["coord"].toObject();
     const QJsonObject &main = jsonObject["main"].toObject();
+    const QJsonObject &sys = jsonObject["sys"].toObject();
 
     qDebug() << jsonResponse.toJson(QJsonDocument::Indented);
-
-    qDebug() << "-------------> message" <<  jsonObject["message"].toString();
-    qDebug() << "-------------> base" <<  jsonObject["base"].toString();
-    qDebug() << "-------------> cod" <<  jsonObject["cod"].toInt();
-    qDebug() << "-------------> lat" <<  coord["lat"].toDouble();
-    qDebug() << "-------------> temp" <<  main["temp"].toDouble();
+    qDebug() << "------------->  weatherData->location()" <<  weatherData->location();
+    //    qDebug() << "-------------> message" <<  jsonObject["message"].toString();
+    //    qDebug() << "-------------> base" <<  jsonObject["base"].toString();
+    //    qDebug() << "-------------> cod" <<  jsonObject["cod"].toInt();
+    //    qDebug() << "-------------> lat" <<  coord["lat"].toDouble();
+    //    qDebug() << "-------------> temp" <<  main["temp"].toDouble();
 
     data.currentTemperature = main["temp"].toDouble();
+    data.humidity = main["humidity"].toInt();
+    data.country = sys["country"].toString();
 
-    foreach (const QJsonValue & value, jsonArray) {
-       const QJsonObject &mainObj = value.toObject();
+    foreach (const QJsonValue & value, weather) {
+        const QJsonObject &weatherObj = value.toObject();
 
-       qDebug() << "description" << mainObj["description"].toString();
-       qDebug() << "main" << mainObj["main"].toString();
-       qDebug() << "icon" << mainObj["icon"].toString();
-       qDebug() << "id" << mainObj["id"].toInt();
+        //       qDebug() << "description" << weatherObj["description"].toString();
+        //       qDebug() << "main" << weatherObj["main"].toString();
+        //       qDebug() << "icon" << weatherObj["icon"].toString();
+        //       qDebug() << "id" << weatherObj["id"].toInt();
 
-
-
+        data.weatherDescription = weatherObj["description"].toString();
         //const QJsonArray &phonesObj = accountObj["phones"].toArray();
 
         //        for (int i = 0; i < phonesObj.size(); ++i) {

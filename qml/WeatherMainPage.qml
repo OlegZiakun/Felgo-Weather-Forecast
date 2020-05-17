@@ -10,7 +10,7 @@ Page {
     visible: false
     property var today: alldata[currentIndex]
     property int currentIndex: 0
-    property alias cityText: cityText.text
+    property string location
 
     WeatherData { id: weatherData }
 
@@ -66,9 +66,9 @@ Page {
             }
         }
 
-        // City
         AppText {
             id: cityText
+            text: weatherData.location
             font.pixelSize: sp(22)
             anchors.horizontalCenter: parent.horizontalCenter
         }
@@ -76,7 +76,7 @@ Page {
         AppButton {
             text: "Receive"
             onClicked: {
-                weatherData.location = cityText.text
+                weatherData.location = location
                 weatherReceiverObject.getCurrent(weatherData)
             }
         }
