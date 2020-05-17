@@ -9,15 +9,24 @@ WeatherData::WeatherData()
 
 void WeatherData::update(const Data &data)
 {
-    qDebug() << "location()" << location();
-
-    qDebug() << "data.currentTemperature" << data.currentTemperature;
-    qDebug() << "data.humidity" << data.humidity;
-    qDebug() << "data.country" << data.country;
-    qDebug() << "data.weatherDescription" << data.weatherDescription;
-
     setCurrentTemperature(data.currentTemperature);
     setLocation(locationStr + ", " + data.country);
+    setHumidity(data.humidity);
+    setDescription(data.description);
+}
+
+int WeatherData::humidity() const
+{
+    return humidityValue;
+}
+
+void WeatherData::setHumidity(int value)
+{
+    if(humidityValue != value)
+    {
+        humidityValue = value;
+        humidityChanged();
+    }
 }
 
 double WeatherData::currentTemperature() const
@@ -44,6 +53,20 @@ void WeatherData::setLocation(const QString &value)
     if(locationStr != value)
     {
         locationStr = value;
-        currentlocationChanged();
+        currentLocationChanged();
+    }
+}
+
+QString WeatherData::description() const
+{
+    return descriptionStr;
+}
+
+void WeatherData::setDescription(const QString &value)
+{
+    if(descriptionStr != value)
+    {
+        descriptionStr = value;
+        descriptionChanged();
     }
 }

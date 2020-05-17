@@ -39,7 +39,7 @@ Page {
             AppText {
                 id: appText
                 width: parent.width
-                text: qsTr("Add Location")
+                text: qsTr("Add City")
                 horizontalAlignment: Text.AlignHCenter
                 fontSize: 28
             }
@@ -61,8 +61,8 @@ Page {
 
                 onClicked: {
                     page.visible = false
-                    weatherMainPage.visible = true
                     weatherMainPage.location = cityEdit.text
+                    weatherMainPage.visible = true
                 }
             }
         }

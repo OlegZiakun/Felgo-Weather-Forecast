@@ -14,12 +14,18 @@ Page {
 
     WeatherData { id: weatherData }
 
+    onVisibleChanged: {
+        if(page.visible) {
+            weatherData.location = location
+            weatherReceiverObject.getCurrent(weatherData)
+        }
+    }
+
     property var alldata: [
-        { temperature: weatherData.currentTemperature, description: qsTr("Foggy") },
-        { temperature: weatherData.currentTemperature, description: qsTr("Sunny") }
+        { temperature: weatherData.currentTemperature, description: weatherData.description },
+        { temperature: weatherData.currentTemperature, description:  weatherData.description }
     ]
 
-    // Background
     Rectangle {
         x: -page.safeArea.x
         y: -page.safeArea.y
@@ -72,22 +78,12 @@ Page {
             font.pixelSize: sp(22)
             anchors.horizontalCenter: parent.horizontalCenter
         }
-
-        AppButton {
-            text: "Receive"
-            onClicked: {
-                weatherData.location = location
-                weatherReceiverObject.getCurrent(weatherData)
-            }
-        }
     }
 
-    // Centered content
     Column {
         id: col
         anchors.centerIn: parent
 
-        // Temperature
         AppText {
             id: tempText
 
@@ -123,7 +119,6 @@ Page {
             }
         }
 
-        // Description
         AppText {
             id: descText
             text: today.description
@@ -140,7 +135,6 @@ Page {
         }
     }
 
-    // Bottom content
     Grid {
         id: bottomGrid
 

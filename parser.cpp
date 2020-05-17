@@ -41,7 +41,7 @@ void Parser::parse(WeatherData* weatherData, const QString &content)
         //       qDebug() << "icon" << weatherObj["icon"].toString();
         //       qDebug() << "id" << weatherObj["id"].toInt();
 
-        data.weatherDescription = weatherObj["description"].toString();
+        data.description = weatherObj["description"].toString();
         //const QJsonArray &phonesObj = accountObj["phones"].toArray();
 
         //        for (int i = 0; i < phonesObj.size(); ++i) {
