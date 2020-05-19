@@ -71,6 +71,64 @@ Page {
 
                 onClicked: weatherMainPage.getData(cityEdit.text)
             }
+
+            AppListView {
+                id: appListView
+
+                // backgroundColor: "green"
+
+                model: ListModel {
+                    ListElement { name: "Banana" }
+                    ListElement { name: "Apple" }
+                    ListElement { name: "Potato" }
+                }
+                delegate: SimpleRow {
+                    AppTextField {
+                        background:   Rectangle {
+                            width: parent.width
+                            height: parent.height
+
+                            gradient: Gradient {
+                                GradientStop {
+                                    position: 0
+                                    color: "#1AD6FD"
+
+                                    Behavior on color { ColorAnimation { duration: 1500 } }
+                                }
+                                GradientStop {
+                                    position: 1
+                                    color: "#1D62F0"
+
+                                    Behavior on color { ColorAnimation { duration: 1000 } }
+                                }
+                            }
+                        }
+
+                        width: appListView.width
+                        height: parent.height
+                        horizontalAlignment: Text.AlignHCenter
+                        verticalAlignment: Text.AlignVCenter
+                        text: name
+                        color: "black"
+                        readOnly: true
+
+                        Rectangle {
+                            id: rect
+                            anchors.fill: parent
+                            color: "transparent"
+
+                            MouseArea {
+                                anchors.fill: parent
+                                propagateComposedEvents: true
+                                cursorShape: Qt.PointingHandCursor
+
+                                onClicked: { mouse.accepted = false }
+                                onPressedButtonsChanged: {  pressed ? rect.color = "#1AD6FD" : rect.color = "transparent" }
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 }
