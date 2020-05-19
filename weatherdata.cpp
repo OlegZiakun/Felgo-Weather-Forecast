@@ -9,37 +9,60 @@ WeatherData::WeatherData()
 
 void WeatherData::update(const Data &data)
 {
-    setCurrentTemperature(data.currentTemperature);
-    setLocation(locationStr + ", " + data.country);
-    setHumidity(data.humidity);
-    setDescription(data.description);
+    const bool visible = data.message.isEmpty();
+
+    setVisible(visible);
+
+    if(visible)
+    {
+        setCurrentTemperature(data.currentTemperature);
+        setLocation(locationStr + ", " + data.country);
+        setHumidity(data.humidity);
+        setDescription(data.description);
+    }
+    else
+        setMessage(data.message);
 }
 
 int WeatherData::humidity() const
 {
-    return humidityValue;
+    return humidityVal;
 }
 
 void WeatherData::setHumidity(int value)
 {
-    if(humidityValue != value)
+    if(humidityVal != value)
     {
-        humidityValue = value;
+        humidityVal = value;
         humidityChanged();
     }
 }
 
 double WeatherData::currentTemperature() const
 {
-    return currentTemperatureValue;
+    return currentTemperatureVal;
 }
 
 void WeatherData::setCurrentTemperature(double value)
 {
-    if(currentTemperatureValue != value)
+    if(currentTemperatureVal != value)
     {
-        currentTemperatureValue = value;
+        currentTemperatureVal = value;
         currentTemperatureChanged();
+    }
+}
+
+bool WeatherData::visible() const
+{
+    return visibleVal;
+}
+
+void WeatherData::setVisible(bool value)
+{
+    if(visibleVal != value)
+    {
+        visibleVal = value;
+        visibleChanged();
     }
 }
 
@@ -68,5 +91,19 @@ void WeatherData::setDescription(const QString &value)
     {
         descriptionStr = value;
         descriptionChanged();
+    }
+}
+
+QString WeatherData::message() const
+{
+    return messageStr;
+}
+
+void WeatherData::setMessage(const QString &value)
+{
+    if(messageStr != value)
+    {
+        messageStr = value;
+        messageChanged();
     }
 }

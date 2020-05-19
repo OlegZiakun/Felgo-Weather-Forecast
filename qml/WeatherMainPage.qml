@@ -7,18 +7,21 @@ import com.OlegZiakun 1.0
 
 Page {
     id: page
-    visible: false
+    visible: weatherData.visible
     property var today: alldata[currentIndex]
     property int currentIndex: 0
-    property string location
+    property string message: weatherData.message
+
+    onMessageChanged: {
+        addLocationPage.messageText = message
+        console.log("=====>", message)
+    }
 
     WeatherData { id: weatherData }
 
-    onVisibleChanged: {
-        if(page.visible) {
-            weatherData.location = location
-            weatherReceiverObject.getCurrent(weatherData)
-        }
+    function getData(location) {
+        weatherData.location = location
+        weatherReceiverObject.getCurrent(weatherData)
     }
 
     property var alldata: [

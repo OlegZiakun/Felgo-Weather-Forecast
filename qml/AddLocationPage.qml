@@ -6,6 +6,7 @@ import Felgo 3.0
 
 Page {
     id: page
+    property alias messageText: messageText.text
 
     // Background
     Rectangle {
@@ -29,12 +30,21 @@ Page {
             }
         }
 
+        //Image {source:"../assets/img/clouds.png"; anchors.fill: parent}
+
         Column
         {
             id: column
             spacing: 10
             anchors.centerIn: parent
             height: parent.height / 2
+
+            AppText {
+                id: messageText
+                width: parent.width
+                horizontalAlignment: Text.AlignHCenter
+                fontSize: 14
+            }
 
             AppText {
                 id: appText
@@ -59,11 +69,7 @@ Page {
                 icon: qsTr("")
                 rippleEffect: true
 
-                onClicked: {
-                    page.visible = false
-                    weatherMainPage.location = cityEdit.text
-                    weatherMainPage.visible = true
-                }
+                onClicked: weatherMainPage.getData(cityEdit.text)
             }
         }
     }

@@ -23,12 +23,13 @@ void Parser::parse(WeatherData* weatherData, const QString &content)
 
     qDebug() << jsonResponse.toJson(QJsonDocument::Indented);
     qDebug() << "------------->  weatherData->location()" <<  weatherData->location();
-    //    qDebug() << "-------------> message" <<  jsonObject["message"].toString();
+    qDebug() << "-------------> message" <<  jsonObject["message"].toString();
     //    qDebug() << "-------------> base" <<  jsonObject["base"].toString();
     //    qDebug() << "-------------> cod" <<  jsonObject["cod"].toInt();
     //    qDebug() << "-------------> lat" <<  coord["lat"].toDouble();
     //    qDebug() << "-------------> temp" <<  main["temp"].toDouble();
 
+    data.message = jsonObject["message"].toString();
     data.currentTemperature = main["temp"].toDouble();
     data.humidity = main["humidity"].toInt();
     data.country = sys["country"].toString();
@@ -50,5 +51,5 @@ void Parser::parse(WeatherData* weatherData, const QString &content)
         //        }
     }
 
-    weatherData->update(data);
+   weatherData->update(data);
 }
