@@ -73,9 +73,11 @@ Page {
                 text:  qsTr("Add")
                 antialiasing: true
                 anchors.right: parent.right
-                radius: 4
 
-                onClicked: weatherMainPage.getData(cityEdit.text)
+                onClicked: {
+                    weatherMainPage.getData(cityEdit.text)
+                    weatherMainPage.visible = (weatherMainPage.error === "")
+                }
             }
 
             AppText {
@@ -131,7 +133,10 @@ Page {
                                 propagateComposedEvents: true
                                 cursorShape: Qt.PointingHandCursor
 
-                                onClicked: { weatherMainPage.visible = true; weatherMainPage.getData(name) }
+                                onClicked: {
+                                    weatherMainPage.getData(name)
+                                    weatherMainPage.visible = (weatherMainPage.error === "")
+                                }
                                 onPressedButtonsChanged: {  pressed ? rect.color = "#1AD6FD" : rect.color = "transparent" }
                             }
                         }

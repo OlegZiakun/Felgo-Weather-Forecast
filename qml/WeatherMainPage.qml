@@ -201,23 +201,4 @@ Page {
             }
         }
     }
-
-    //  Timer {
-    //    interval: 1000
-    //    repeat: true
-    //    running: true
-    //    onTriggered: {
-    //      interval = 3500
-    //      if (currentIndex < alldata.length - 1)
-    //        currentIndex++
-    //      else
-    //        currentIndex = 0
-    //    }
-    //  }
 }
-
-/*##^##
-Designer {
-    D{i:0;autoSize:true;height:480;width:640}
-}
-##^##*/

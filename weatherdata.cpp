@@ -36,7 +36,7 @@ void WeatherData::setHumidity(int value)
     if(humidityVal != value)
     {
         humidityVal = value;
-        humidityChanged();
+        emit humidityChanged();
     }
 }
 
@@ -50,7 +50,7 @@ void WeatherData::setCurrentTemperature(double value)
     if(currentTemperatureVal != value)
     {
         currentTemperatureVal = value;
-        currentTemperatureChanged();
+        emit currentTemperatureChanged();
     }
 }
 
@@ -64,7 +64,7 @@ void WeatherData::setVisible(bool value)
     if(visibleVal != value)
     {
         visibleVal = value;
-        visibleChanged();
+        emit visibleChanged();
     }
 }
 
@@ -78,7 +78,7 @@ void WeatherData::setLocation(const QString &value)
     if(locationStr != value)
     {
         locationStr = value;
-        currentLocationChanged();
+        emit currentLocationChanged();
     }
 }
 
@@ -92,7 +92,7 @@ void WeatherData::setDescription(const QString &value)
     if(descriptionStr != value)
     {
         descriptionStr = value;
-        descriptionChanged();
+        emit descriptionChanged();
     }
 }
 
@@ -106,7 +106,7 @@ void WeatherData::setError(const QString &value)
     if(errorStr != value)
     {
         errorStr = value;
-        errorChanged();
+        emit errorChanged();
     }
 }
 
