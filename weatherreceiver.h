@@ -15,7 +15,9 @@ public:
     WeatherReceiver();
 
 public slots:
-    void getCurrent(WeatherData* weatherData);
+    void setWeatherData(WeatherData *weatherData);
+    void getCurrent();
+    QStringList recentLocations() const;
 
 private:
     QScopedPointer<QNetworkAccessManager> manager;

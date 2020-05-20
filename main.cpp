@@ -25,7 +25,7 @@ int main(int argc, char *argv[])
 
   qmlRegisterType<WeatherData>("com.OlegZiakun", 1, 0, "WeatherData");
 
-  engine.rootContext()->setContextProperty("weatherReceiverObject", weatherReceiver);
+  engine.rootContext()->setContextProperty("weatherReceiver", weatherReceiver);
   engine.load(QUrl(felgo.mainQmlFileName()));
 
   return app.exec();

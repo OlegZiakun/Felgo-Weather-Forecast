@@ -1,6 +1,7 @@
 import Felgo 3.0
 import QtQuick 2.0
 
+import com.OlegZiakun 1.0
 
 App {
   id: app
@@ -20,6 +21,7 @@ App {
     Theme.normalFont = normalFont
   }
 
+  WeatherData { id: weatherData }
   AddLocationPage {id: addLocationPage}
   WeatherMainPage {id: weatherMainPage}
 }

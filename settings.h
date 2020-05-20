@@ -1,13 +1,13 @@
 #ifndef SETTINGS_H
 #define SETTINGS_H
 
-#include <QObject>
+#include <QSettings>
 
-class Settings
+class Settings: public QSettings
 {
-   // Q_OBJECT
-public:
-    Settings();
+public slots:
+   void saveLocation(const QString &location);
+   QStringList getLocations() const;
 };
 
 #endif // SETTINGS_H

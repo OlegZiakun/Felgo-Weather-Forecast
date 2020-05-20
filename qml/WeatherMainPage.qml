@@ -3,8 +3,6 @@ import QtQuick.Controls 1.2
 
 import Felgo 3.0
 
-import com.OlegZiakun 1.0
-
 Page {
     id: page
     visible: weatherData.visible
@@ -12,16 +10,11 @@ Page {
     property int currentIndex: 0
     property string message: weatherData.message
 
-    onMessageChanged: {
-        addLocationPage.messageText = message
-        console.log("=====>", message)
-    }
-
-    WeatherData { id: weatherData }
+    onMessageChanged: addLocationPage.messageText = message
 
     function getData(location) {
         weatherData.location = location
-        weatherReceiverObject.getCurrent(weatherData)
+        weatherReceiver.getCurrent()
     }
 
     property var alldata: [

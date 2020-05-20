@@ -3,6 +3,8 @@
 
 #include <QObject>
 
+#include "settings.h"
+
 struct Data
 {
     double currentTemperature = 0;
@@ -46,6 +48,8 @@ public:
      QString message() const;
      void setMessage(const QString& value);
 
+     QStringList recentLocations() const;
+
 signals:
     void currentTemperatureChanged();
     void currentLocationChanged();
@@ -61,6 +65,7 @@ private:
     QString locationStr;
     QString descriptionStr;
     QString messageStr;
+    Settings settings;
 };
 
 #endif // WEATHERDATA_H

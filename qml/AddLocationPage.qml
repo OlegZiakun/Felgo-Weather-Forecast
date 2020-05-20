@@ -8,6 +8,16 @@ Page {
     id: page
     property alias messageText: messageText.text
 
+    Component.onCompleted: {
+        weatherReceiver.setWeatherData(weatherData)
+
+        const recentLocations = weatherReceiver.recentLocations()
+
+        recentLocations.forEach(function(item){
+            listModel.append({ name: item })
+        });
+    }
+
     // Background
     Rectangle {
         x: -page.safeArea.x
@@ -75,13 +85,8 @@ Page {
             AppListView {
                 id: appListView
 
-                // backgroundColor: "green"
+                model: ListModel { id: listModel }
 
-                model: ListModel {
-                    ListElement { name: "Banana" }
-                    ListElement { name: "Apple" }
-                    ListElement { name: "Potato" }
-                }
                 delegate: SimpleRow {
                     AppTextField {
                         background:   Rectangle {
@@ -122,7 +127,7 @@ Page {
                                 propagateComposedEvents: true
                                 cursorShape: Qt.PointingHandCursor
 
-                                onClicked: { mouse.accepted = false }
+                                onClicked: weatherMainPage.getData(name)
                                 onPressedButtonsChanged: {  pressed ? rect.color = "#1AD6FD" : rect.color = "transparent" }
                             }
                         }

@@ -10,7 +10,13 @@ class Parser
 public:
     Parser();
 
-    void parse(WeatherData* weatherData, const QString &content);
+    void parse(const QString &content);
+
+    void setWeatherData(WeatherData *weatherData);
+    WeatherData* getWeatherData() const;
+
+private:
+    WeatherData* weatherData = nullptr;
 };
 
 #endif // PARSER_H

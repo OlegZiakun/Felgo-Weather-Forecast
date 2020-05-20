@@ -10,7 +10,7 @@ Parser::Parser()
 {
 }
 
-void Parser::parse(WeatherData* weatherData, const QString &content)
+void Parser::parse(const QString &content)
 {
     Data data;
     const QJsonDocument &jsonResponse = QJsonDocument::fromJson(content.toUtf8());
@@ -21,9 +21,9 @@ void Parser::parse(WeatherData* weatherData, const QString &content)
     const QJsonObject &main = jsonObject["main"].toObject();
     const QJsonObject &sys = jsonObject["sys"].toObject();
 
-    qDebug() << jsonResponse.toJson(QJsonDocument::Indented);
-    qDebug() << "------------->  weatherData->location()" <<  weatherData->location();
-    qDebug() << "-------------> message" <<  jsonObject["message"].toString();
+//    qDebug() << jsonResponse.toJson(QJsonDocument::Indented);
+//    qDebug() << "------------->  weatherData->location()" <<  weatherData->location();
+//    qDebug() << "-------------> message" <<  jsonObject["message"].toString();
     //    qDebug() << "-------------> base" <<  jsonObject["base"].toString();
     //    qDebug() << "-------------> cod" <<  jsonObject["cod"].toInt();
     //    qDebug() << "-------------> lat" <<  coord["lat"].toDouble();
@@ -52,4 +52,14 @@ void Parser::parse(WeatherData* weatherData, const QString &content)
     }
 
    weatherData->update(data);
+}
+
+void Parser::setWeatherData(WeatherData* weatherData)
+{
+    this->weatherData = weatherData;
+}
+
+WeatherData* Parser::getWeatherData() const
+{
+    return weatherData;
 }

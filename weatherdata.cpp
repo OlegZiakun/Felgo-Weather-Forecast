@@ -15,12 +15,14 @@ void WeatherData::update(const Data &data)
 
     if(visible)
     {
+        settings.saveLocation(locationStr);
+
         setCurrentTemperature(data.currentTemperature);
         setLocation(locationStr + ", " + data.country);
         setHumidity(data.humidity);
         setDescription(data.description);
     }
-    else
+    else//
         setMessage(data.message);
 }
 
@@ -106,4 +108,9 @@ void WeatherData::setMessage(const QString &value)
         messageStr = value;
         messageChanged();
     }
+}
+
+QStringList WeatherData::recentLocations() const
+{
+    return settings.getLocations();
 }
