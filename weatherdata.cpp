@@ -9,7 +9,7 @@ WeatherData::WeatherData()
 
 void WeatherData::update(const Data &data)
 {
-    const bool visible = data.message.isEmpty();
+    const bool visible = data.error.isEmpty();
 
     setVisible(visible);
 
@@ -23,7 +23,7 @@ void WeatherData::update(const Data &data)
         setDescription(data.description);
     }
     else//
-        setMessage(data.message);
+        setError(data.error);
 }
 
 int WeatherData::humidity() const
@@ -96,17 +96,17 @@ void WeatherData::setDescription(const QString &value)
     }
 }
 
-QString WeatherData::message() const
+QString WeatherData::error() const
 {
-    return messageStr;
+    return errorStr;
 }
 
-void WeatherData::setMessage(const QString &value)
+void WeatherData::setError(const QString &value)
 {
-    if(messageStr != value)
+    if(errorStr != value)
     {
-        messageStr = value;
-        messageChanged();
+        errorStr = value;
+        errorChanged();
     }
 }
 

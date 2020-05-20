@@ -11,7 +11,7 @@ struct Data
     int humidity = 0;
     QString country;
     QString description;
-    QString message;
+    QString error;
 };
 
 class WeatherData : public QObject
@@ -23,7 +23,7 @@ class WeatherData : public QObject
     Q_PROPERTY(bool visible READ visible WRITE setVisible NOTIFY visibleChanged)
     Q_PROPERTY(QString location READ location WRITE setLocation NOTIFY currentLocationChanged)
     Q_PROPERTY(QString description READ description WRITE setDescription NOTIFY descriptionChanged)
-    Q_PROPERTY(QString message READ message WRITE setMessage NOTIFY messageChanged)
+    Q_PROPERTY(QString error READ error WRITE setError NOTIFY errorChanged)
 
 public:
     WeatherData();
@@ -45,8 +45,8 @@ public:
      QString description() const;
      void setDescription(const QString& value);
 
-     QString message() const;
-     void setMessage(const QString& value);
+     QString error() const;
+     void setError(const QString& value);
 
      QStringList recentLocations() const;
 
@@ -56,7 +56,7 @@ signals:
     void humidityChanged();
     void descriptionChanged();
     void visibleChanged();
-    void messageChanged();
+    void errorChanged();
 
 private:
     double currentTemperatureVal = 0;
@@ -64,7 +64,7 @@ private:
     bool visibleVal = false;
     QString locationStr;
     QString descriptionStr;
-    QString messageStr;
+    QString errorStr;
     Settings settings;
 };
 

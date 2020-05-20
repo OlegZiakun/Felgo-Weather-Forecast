@@ -8,9 +8,9 @@ Page {
     visible: weatherData.visible
     property var today: alldata[currentIndex]
     property int currentIndex: 0
-    property string message: weatherData.message
+    property string error: weatherData.error
 
-    onMessageChanged: addLocationPage.messageText = message
+    onErrorChanged: addLocationPage.errorText = error
 
     function getData(location) {
         weatherData.location = location
@@ -44,13 +44,11 @@ Page {
         }
     }
 
-    // Top content
     Column {
         anchors.horizontalCenter: parent.horizontalCenter
         y: dp(10)
         spacing: dp(10)
 
-        // Current time
         AppText {
             id: timeLabel
 
@@ -100,7 +98,6 @@ Page {
                 interval: 40
 
                 onTriggered: {
-                    // Check if we have to change the text
                     var currentTemp = parseInt(tempText.text)
 
                     if (tempText.temperature > currentTemp) {

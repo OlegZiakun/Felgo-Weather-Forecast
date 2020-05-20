@@ -18,6 +18,7 @@ public slots:
     void setWeatherData(WeatherData *weatherData);
     void getCurrent();
     QStringList recentLocations() const;
+    bool recentLocationsExists() const;
 
 private:
     QScopedPointer<QNetworkAccessManager> manager;

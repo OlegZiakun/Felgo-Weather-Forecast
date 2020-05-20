@@ -6,19 +6,18 @@ import Felgo 3.0
 
 Page {
     id: page
-    property alias messageText: messageText.text
+    property alias errorText: errorText.text
 
     Component.onCompleted: {
         weatherReceiver.setWeatherData(weatherData)
 
-        const recentLocations = weatherReceiver.recentLocations()
-
-        recentLocations.forEach(function(item){
+        weatherReceiver.recentLocations().forEach(function(item){
             listModel.append({ name: item })
         });
+
+        recentText.visible = weatherReceiver.recentLocationsExists()
     }
 
-    // Background
     Rectangle {
         x: -page.safeArea.x
         y: -page.safeArea.y
@@ -40,8 +39,6 @@ Page {
             }
         }
 
-        //Image {source:"../assets/img/clouds.png"; anchors.fill: parent}
-
         Column
         {
             id: column
@@ -50,10 +47,10 @@ Page {
             height: parent.height / 2
 
             AppText {
-                id: messageText
+                id: errorText
                 width: parent.width
                 horizontalAlignment: Text.AlignHCenter
-                fontSize: 14
+                fontSize: sp(12)
             }
 
             AppText {
@@ -61,7 +58,7 @@ Page {
                 width: parent.width
                 text: qsTr("Add City")
                 horizontalAlignment: Text.AlignHCenter
-                fontSize: 28
+                fontSize: sp(22)
             }
 
             AppTextField {
@@ -80,6 +77,13 @@ Page {
                 rippleEffect: true
 
                 onClicked: weatherMainPage.getData(cityEdit.text)
+            }
+
+            AppText {
+                id: recentText
+                width: parent.width
+                text: qsTr("Recent Cities:")
+                fontSize: sp(12)
             }
 
             AppListView {

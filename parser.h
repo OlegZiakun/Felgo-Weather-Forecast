@@ -3,15 +3,12 @@
 
 #include <QObject>
 
-#include "weatherdata.h"
+class WeatherData;
 
 class Parser
 {
 public:
-    Parser();
-
     void parse(const QString &content);
-
     void setWeatherData(WeatherData *weatherData);
     WeatherData* getWeatherData() const;
 

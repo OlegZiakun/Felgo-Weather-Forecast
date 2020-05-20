@@ -27,7 +27,7 @@ void Settings::saveLocation(const QString &location)
             return;
     }
 
-    if(locationsCount <= 2)
+    if(locationsCount < 6)
     {
         setValue("locations/count", ++locationsCount);
         setValue("locations/" + QString::number(locationsCount), location);
