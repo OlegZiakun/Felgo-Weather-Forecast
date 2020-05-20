@@ -60,9 +60,7 @@ Page {
                 interval: 1000 * 30
                 triggeredOnStart: true
                 repeat: true
-                onTriggered: {
-                    timeLabel.text = new Date().toLocaleTimeString(Qt.locale(), Locale.ShortFormat)
-                }
+                onTriggered: timeLabel.text = new Date().toLocaleTimeString(Qt.locale(), Locale.ShortFormat)
             }
         }
 
@@ -71,6 +69,21 @@ Page {
             text: weatherData.location
             font.pixelSize: sp(22)
             anchors.horizontalCenter: parent.horizontalCenter
+
+            Rectangle {
+                id: rect
+                anchors.fill: parent
+                color: "transparent"
+
+                MouseArea {
+                    anchors.fill: parent
+                    propagateComposedEvents: true
+                    cursorShape: Qt.PointingHandCursor
+
+                    onClicked: { page.visible = false; addLocationPage.visible = true }
+                    onPressedButtonsChanged: {  pressed ? rect.color = "#1AD6FD" : rect.color = "transparent" }
+                }
+            }
         }
     }
 

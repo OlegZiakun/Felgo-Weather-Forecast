@@ -11,18 +11,18 @@
 void Parser::parse(const QString &content)
 {
     Data data;
-    const QJsonDocument &jsonResponse = QJsonDocument::fromJson(content.toUtf8());
-    const QJsonObject &jsonObject = jsonResponse.object();
-    const QJsonArray &weather = jsonObject["weather"].toArray();
-    const QJsonObject &main = jsonObject["main"].toObject();
-    const QJsonObject &sys = jsonObject["sys"].toObject();
+    const QJsonDocument& jsonResponse = QJsonDocument::fromJson(content.toUtf8());
+    const QJsonObject& jsonObject = jsonResponse.object();
+    const QJsonArray& weather = jsonObject["weather"].toArray();
+    const QJsonObject& main = jsonObject["main"].toObject();
+    const QJsonObject& sys = jsonObject["sys"].toObject();
 
     data.error = jsonObject["message"].toString();
     data.currentTemperature = main["temp"].toDouble();
     data.humidity = main["humidity"].toInt();
     data.country = sys["country"].toString();
 
-    foreach (const QJsonValue& value, weather)
+    for(const QJsonValue& value: weather)
         data.description = value.toObject()["description"].toString();
 
    weatherData->update(data);

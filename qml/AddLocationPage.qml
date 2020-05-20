@@ -18,6 +18,7 @@ Page {
         recentText.visible = weatherReceiver.recentLocationsExists()
     }
 
+    // Background
     Rectangle {
         x: -page.safeArea.x
         y: -page.safeArea.y
@@ -63,7 +64,6 @@ Page {
 
             AppTextField {
                 id: cityEdit
-                color: "black"
                 width: page.width / 1.3
                 text: "Ivano-Frankivsk"
             }
@@ -73,8 +73,7 @@ Page {
                 text:  qsTr("Add")
                 antialiasing: true
                 anchors.right: parent.right
-                icon: qsTr("")
-                rippleEffect: true
+                radius: 4
 
                 onClicked: weatherMainPage.getData(cityEdit.text)
             }
@@ -90,6 +89,7 @@ Page {
                 id: appListView
 
                 model: ListModel { id: listModel }
+                backgroundColor: "transparent"
 
                 delegate: SimpleRow {
                     AppTextField {
@@ -131,7 +131,7 @@ Page {
                                 propagateComposedEvents: true
                                 cursorShape: Qt.PointingHandCursor
 
-                                onClicked: weatherMainPage.getData(name)
+                                onClicked: { weatherMainPage.visible = true; weatherMainPage.getData(name) }
                                 onPressedButtonsChanged: {  pressed ? rect.color = "#1AD6FD" : rect.color = "transparent" }
                             }
                         }
@@ -141,9 +141,3 @@ Page {
         }
     }
 }
-
-/*##^##
-Designer {
-    D{i:0;autoSize:true;height:480;width:640}
-}
-##^##*/
