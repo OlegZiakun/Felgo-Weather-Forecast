@@ -21,19 +21,21 @@ void WeatherReceiver::setWeatherData(WeatherData* weatherData)
     parser.setWeatherData(weatherData);
 }
 
+
 void WeatherReceiver::getCurrent()
 {
-    qDebug () << "parser.getWeatherData()->location()" << parser.getWeatherData()->location();
-
     networkRequest.setUrl(QUrl("https://api.openweathermap.org/data/2.5/find?q=" + parser.getWeatherData()->location() + "&units=metric&appid=" + key));
     QNetworkReply *reply = manager->get(networkRequest);
-    connect(reply, &QIODevice::readyRead, this, [=] { parser.parse(reply->readAll()); });
+    connect(reply, &QIODevice::readyRead, this, [=] { parser.parseCurrent(reply->readAll()); });
+
+    getForecast();
 }
 
-void WeatherReceiver::getForecast(int daysCount)
+void WeatherReceiver::getForecast()
 {
-    //cnt=10
-    //community-open-weather-map.p.rapidapi.com/forecast/daily?q=
+    networkRequest.setUrl(QUrl("https://api.openweathermap.org/data/2.5/forecast/?q=" + parser.getWeatherData()->location() + "&units=metric&appid=" + key));
+    QNetworkReply *reply = manager->get(networkRequest);
+    connect(reply, &QIODevice::readyRead, this, [=] { parser.parseForecast(reply->readAll()); });
 }
 
 QStringList WeatherReceiver::recentLocations() const

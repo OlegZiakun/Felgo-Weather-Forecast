@@ -69,7 +69,6 @@ Page {
             AppTextField {
                 id: cityEdit
                 width: page.width / 1.3
-                text: "Ivano-Frankivsk"
             }
 
             AppButton {

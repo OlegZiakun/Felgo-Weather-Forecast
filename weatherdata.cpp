@@ -2,17 +2,31 @@
 
 #include <QDebug>
 
+namespace { constexpr int forecastDaysCount = 5; }
+
 WeatherData::WeatherData()
 {
+    for(int i = 0; i < forecastDaysCount; ++i)
+    {
+        daysList.push_back(QString());
+        descriptionList.push_back(QString());
+        minTemperatures.push_back(0);
+        maxTemperatures.push_back(0);
+    }
 
+    descriptionIcon["Clear"] = "\uf185";
+    descriptionIcon["Clouds"] = "\uf0c2";
+    descriptionIcon["Rain"] = "\uf0e9";
 }
 
-void WeatherData::update(const Data &data)
+void WeatherData::update(const CurrentData &data)
 {
     const bool visible = data.error.isEmpty();
 
     setVisible(visible);
     setError(data.error);
+
+     qDebug() << "============>" << data.description;
 
     if(visible)
     {
@@ -25,9 +39,20 @@ void WeatherData::update(const Data &data)
     }
 }
 
-int WeatherData::humidity() const
+void WeatherData::update(const QVector<ForecastData> &data)
 {
-    return humidityVal;
+    if(data.size() != forecastDaysCount)
+        return;
+
+    for(const auto& d: data)
+    {
+        qDebug() << "============>" <<  data.size() << " " << d.day << "tempMin" << d.minTemperature << "tempMax" << d.maxTemperature;
+    }
+
+    setForecastDay1(data[0].day); setForecastDay2(data[1].day); setForecastDay3(data[2].day); setForecastDay4(data[3].day); setForecastDay5(data[4].day);
+    setForecastDescription1(data[0].description); setForecastDescription2(data[1].description); setForecastDescription3(data[2].description);  setForecastDescription4(data[3].description); setForecastDescription5 (data[4].description);
+    setForecastMinTemperature1(data[0].minTemperature); setForecastMinTemperature2(data[1].minTemperature); setForecastMinTemperature3(data[2].minTemperature); setForecastMinTemperature4 (data[3].minTemperature); setForecastMinTemperature5(data[4].minTemperature);
+    setForecastMaxTemperature1(data[0].maxTemperature); setForecastMaxTemperature2(data[1].maxTemperature); setForecastMaxTemperature3(data[2].maxTemperature); setForecastMaxTemperature4(data[3].maxTemperature); setForecastMaxTemperature5(data[4].maxTemperature);
 }
 
 void WeatherData::setHumidity(int value)
@@ -39,11 +64,6 @@ void WeatherData::setHumidity(int value)
     }
 }
 
-double WeatherData::currentTemperature() const
-{
-    return currentTemperatureVal;
-}
-
 void WeatherData::setCurrentTemperature(double value)
 {
     if(currentTemperatureVal != value)
@@ -51,11 +71,6 @@ void WeatherData::setCurrentTemperature(double value)
         currentTemperatureVal = value;
         emit currentTemperatureChanged();
     }
-}
-
-bool WeatherData::visible() const
-{
-    return visibleVal;
 }
 
 void WeatherData::setVisible(bool value)
@@ -67,11 +82,6 @@ void WeatherData::setVisible(bool value)
     }
 }
 
-QString WeatherData::location() const
-{
-    return locationStr;
-}
-
 void WeatherData::setLocation(const QString &value)
 {
     if(locationStr != value)
@@ -81,10 +91,6 @@ void WeatherData::setLocation(const QString &value)
     }
 }
 
-QString WeatherData::description() const
-{
-    return descriptionStr;
-}
 
 void WeatherData::setDescription(const QString &value)
 {
@@ -93,11 +99,6 @@ void WeatherData::setDescription(const QString &value)
         descriptionStr = value;
         emit descriptionChanged();
     }
-}
-
-QString WeatherData::error() const
-{
-    return errorStr;
 }
 
 void WeatherData::setError(const QString &value)
@@ -109,7 +110,88 @@ void WeatherData::setError(const QString &value)
     }
 }
 
-QStringList WeatherData::recentLocations() const
+void WeatherData::setForecastStrVal(QString &data, const QString &value)
 {
-    return settings.getLocations();
+    if(data != value)
+    {
+        data = value;
+        emit forecastChanged();
+    }
 }
+
+void WeatherData::setForecastDoubleVal(double &data, double value)
+{
+    if(data != value)
+    {
+        data= value;
+        emit forecastChanged();
+    }
+}
+
+bool WeatherData::visible() const { return visibleVal; }
+double WeatherData::currentTemperature() const { return currentTemperatureVal; }
+int WeatherData::humidity() const { return humidityVal; }
+QString WeatherData::location() const { return locationStr; }
+QString WeatherData::description() const { return descriptionStr; }
+QString WeatherData::error() const { return errorStr; }
+QStringList WeatherData::recentLocations() const { return settings.getLocations(); }
+
+QString WeatherData::forecastDay1() const { return daysList[0]; }
+void WeatherData::setForecastDay1(const QString &value) { setForecastStrVal(daysList[0], value); }
+
+QString WeatherData::forecastDay2() const { return daysList[1]; }
+void WeatherData::setForecastDay2(const QString& value){ setForecastStrVal(daysList[1], value); }
+
+QString WeatherData::forecastDay3() const { return daysList[2]; }
+void WeatherData::setForecastDay3(const QString& value) { setForecastStrVal(daysList[2], value); }
+
+QString WeatherData::forecastDay4() const { return daysList[3]; }
+void WeatherData::setForecastDay4(const QString& value){ setForecastStrVal(daysList[3], value); }
+
+QString WeatherData::forecastDay5() const { return daysList[4]; }
+void WeatherData::setForecastDay5(const QString& value) { setForecastStrVal(daysList[4], value); }
+
+QString WeatherData::forecastDescription1() const { return descriptionIcon[descriptionList[0]]; }
+void WeatherData::setForecastDescription1(const QString& value) { setForecastStrVal(descriptionList[0], value); }
+
+QString WeatherData::forecastDescription2() const { return descriptionIcon[descriptionList[1]]; }
+void WeatherData::setForecastDescription2(const QString& value) { setForecastStrVal(descriptionList[1], value); }
+
+QString WeatherData::forecastDescription3() const { return descriptionIcon[descriptionList[2]]; }
+void WeatherData::setForecastDescription3(const QString& value) { setForecastStrVal(descriptionList[2], value); }
+
+QString WeatherData::forecastDescription4() const { return descriptionIcon[descriptionList[3]]; }
+void WeatherData::setForecastDescription4(const QString& value) { setForecastStrVal(descriptionList[3], value); }
+
+QString WeatherData::forecastDescription5() const { return descriptionIcon[descriptionList[4]]; }
+void WeatherData::setForecastDescription5(const QString& value) { setForecastStrVal(descriptionList[4], value); }
+
+double WeatherData::forecastMinTemperature1() const { return minTemperatures[0]; }
+void WeatherData::setForecastMinTemperature1(double value) { setForecastDoubleVal(minTemperatures[0], value); }
+
+double WeatherData::forecastMinTemperature2() const { return minTemperatures[1]; }
+void WeatherData::setForecastMinTemperature2(double value) { setForecastDoubleVal(minTemperatures[1], value); }
+
+double WeatherData::forecastMinTemperature3() const { return minTemperatures[2]; }
+void WeatherData::setForecastMinTemperature3(double value) { setForecastDoubleVal(minTemperatures[2], value); }
+
+double WeatherData::forecastMinTemperature4() const { return minTemperatures[3]; }
+void WeatherData::setForecastMinTemperature4(double value) { setForecastDoubleVal(minTemperatures[3], value); }
+
+double WeatherData::forecastMinTemperature5() const { return minTemperatures[4]; }
+void WeatherData::setForecastMinTemperature5(double value) { setForecastDoubleVal(minTemperatures[4], value); }
+
+double WeatherData::forecastMaxTemperature1() const { return maxTemperatures[0]; }
+void WeatherData::setForecastMaxTemperature1(double value) { setForecastDoubleVal(maxTemperatures[0], value); }
+
+double WeatherData::forecastMaxTemperature2() const { return maxTemperatures[1]; }
+void WeatherData::setForecastMaxTemperature2(double value) { setForecastDoubleVal(maxTemperatures[1], value); }
+
+double WeatherData::forecastMaxTemperature3() const { return maxTemperatures[2]; }
+void WeatherData::setForecastMaxTemperature3(double value) { setForecastDoubleVal(maxTemperatures[2], value); }
+
+double WeatherData::forecastMaxTemperature4() const { return maxTemperatures[3]; }
+void WeatherData::setForecastMaxTemperature4(double value) { setForecastDoubleVal(maxTemperatures[3], value); }
+
+double WeatherData::forecastMaxTemperature5() const { return maxTemperatures[4]; }
+void WeatherData::setForecastMaxTemperature5(double value) { setForecastDoubleVal(maxTemperatures[4], value); }

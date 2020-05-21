@@ -1,14 +1,15 @@
 #ifndef PARSER_H
 #define PARSER_H
 
-#include <QObject>
+#include <QString>
 
 class WeatherData;
 
 class Parser
 {
 public:
-    void parse(const QString &content);
+    void parseCurrent(const QString &content);
+    void parseForecast(const QString &content);
     void setWeatherData(WeatherData *weatherData);
     WeatherData* getWeatherData() const;
 

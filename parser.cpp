@@ -3,14 +3,17 @@
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QJsonArray>
+#include <QDate>
 
 #include "weatherdata.h"
+#include "utils.h"
 
 #include <QDebug>
 
-void Parser::parse(const QString &content)
+void Parser::parseCurrent(const QString &content)
 {
-    Data data;
+    CurrentData data;
+
     const QJsonDocument& jsonResponse = QJsonDocument::fromJson(content.toUtf8());
     const QJsonObject& jsonObject = jsonResponse.object();
     const QJsonArray& list = jsonObject["list"].toArray();
@@ -44,6 +47,60 @@ void Parser::parse(const QString &content)
         data.error = QObject::tr("City doesn't exists");
 
     weatherData->update(data);
+}
+
+void Parser::parseForecast(const QString &content)
+{
+    const QJsonDocument& jsonResponse = QJsonDocument::fromJson(content.toUtf8());
+    const QJsonObject& jsonObject = jsonResponse.object();
+    const QJsonArray& list = jsonObject["list"].toArray();
+
+    if(jsonObject["cod"].toInt() != 0)
+    {
+        CurrentData data;
+        data.error = jsonObject["message"].toString();
+        weatherData->update(data);
+
+        return;
+    }
+
+    QString day;
+    QVector<ForecastData> forecastData;
+
+    if(list.size() > 0)
+    {
+        const Utils::Time time = Utils::timeStrFromUnixTime(list[0].toObject()["dt"].toInt());
+        day = time.day;
+    }
+
+    double minTemperature = 90., maxTemperature = -90.;
+
+    for(const auto& val: list)
+    {
+        const QJsonObject& currentVal = val.toObject();
+        const Utils::Time time = Utils::timeStrFromUnixTime(currentVal["dt"].toInt());
+        const QJsonObject& main = currentVal["main"].toObject();
+        const QJsonArray& weather = currentVal["weather"].toArray();
+
+        QString description;
+
+        if(weather.size() > 0)
+            description = weather[0].toObject()["main"].toString();
+
+        minTemperature = qMin(minTemperature, main["temp_min"].toDouble());
+        maxTemperature = qMax(maxTemperature, main["temp_max"].toDouble());
+
+        if(day != time.day)
+        {
+            forecastData.push_back(ForecastData(day + "/" + time.month, description, minTemperature, maxTemperature));
+
+            day = time.day;
+            minTemperature = 90.;
+            maxTemperature = -90.;
+        }
+    }
+
+     weatherData->update(forecastData);
 }
 
 void Parser::setWeatherData(WeatherData* weatherData)

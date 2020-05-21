@@ -157,11 +157,11 @@ Page {
 
         Repeater {
             model: [
-                { day: Qt.formatDateTime(new Date(), "dd/MM"), high: 34, low: 24, icon: IconType.umbrella },
-                { day: Qt.formatDateTime(bottomGrid.tomorrowDate, "dd/MM"), high: 32, low: 20, icon: IconType.suno },
-                { day: Qt.formatDateTime(new Date(), "dd/MM"), high: 33, low: 20, icon: IconType.cloud },
-                { day: Qt.formatDateTime(new Date(), "dd/MM"), high: 28, low: 21, icon: IconType.adjust },
-                { day: Qt.formatDateTime(new Date(), "dd/MM"), high: 24, low: 16, icon: IconType.suno }
+                { day: weatherData.forecastDay1, high: parseInt(weatherData.forecastMaxTemperature1), low: parseInt(weatherData.forecastMinTemperature1), icon: weatherData.forecastDescription1 },
+                { day: weatherData.forecastDay2, high: parseInt(weatherData.forecastMaxTemperature2), low: parseInt(weatherData.forecastMinTemperature2), icon: weatherData.forecastDescription2 },
+                { day: weatherData.forecastDay3, high: parseInt(weatherData.forecastMaxTemperature3), low: parseInt(weatherData.forecastMinTemperature3), icon: weatherData.forecastDescription3 },
+                { day: weatherData.forecastDay4, high: parseInt(weatherData.forecastMaxTemperature4), low: parseInt(weatherData.forecastMinTemperature4), icon: weatherData.forecastDescription4 },
+                { day: weatherData.forecastDay5, high: parseInt(weatherData.forecastMaxTemperature5), low: parseInt(weatherData.forecastMinTemperature5), icon: weatherData.forecastDescription5 }
             ]
 
             Column {

@@ -66,6 +66,7 @@ macx {
 HEADERS += \
     parser.h \
     settings.h \
+    utils.h \
     weatherdata.h \
     weatherreceiver.h
 

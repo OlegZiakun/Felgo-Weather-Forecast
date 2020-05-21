@@ -17,7 +17,7 @@ public:
 public slots:
     void setWeatherData(WeatherData *weatherData);
     void getCurrent();
-    void getForecast(int daysCount);
+    void getForecast();
     QStringList recentLocations() const;
     bool recentLocationsExists() const;
 
