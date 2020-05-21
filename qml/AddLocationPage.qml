@@ -8,15 +8,19 @@ Page {
     id: page
     property alias errorText: errorText.text
 
-    Component.onCompleted: {
+    function updateRecent() {
+        listModel.clear()
         weatherReceiver.setWeatherData(weatherData)
 
-        weatherReceiver.recentLocations().forEach(function(item){
+        weatherReceiver.recentLocations().forEach(function(item) {
             listModel.append({ name: item })
         });
 
         recentText.visible = weatherReceiver.recentLocationsExists()
     }
+
+    Component.onCompleted: updateRecent()
+    onVisibleChanged: updateRecent()
 
     // Background
     Rectangle {
@@ -76,6 +80,7 @@ Page {
 
                 onClicked: {
                     weatherMainPage.getData(cityEdit.text)
+                    page.visible = false
                     weatherMainPage.visible = (weatherMainPage.error === "")
                 }
             }

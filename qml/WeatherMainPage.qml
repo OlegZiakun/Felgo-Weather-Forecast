@@ -10,7 +10,11 @@ Page {
     property int currentIndex: 0
     property string error: weatherData.error
 
-    onErrorChanged: addLocationPage.errorText = error
+    onErrorChanged: {
+        addLocationPage.errorText = error
+        addLocationPage.visible = !weatherData.visible
+        page.visible = weatherData.visible
+    }
 
     function getData(location) {
         weatherData.location = location

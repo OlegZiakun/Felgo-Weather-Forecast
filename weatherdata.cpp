@@ -12,6 +12,7 @@ void WeatherData::update(const Data &data)
     const bool visible = data.error.isEmpty();
 
     setVisible(visible);
+    setError(data.error);
 
     if(visible)
     {
@@ -22,8 +23,6 @@ void WeatherData::update(const Data &data)
         setHumidity(data.humidity);
         setDescription(data.description);
     }
-    else//
-        setError(data.error);
 }
 
 int WeatherData::humidity() const

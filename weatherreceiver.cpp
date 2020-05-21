@@ -9,7 +9,7 @@
 
 using namespace std;
 
-namespace { const QString key =  "976d4b6bfamsh9ee3894ee6d3f3ep1ab798jsnea29f25aea69"; }
+namespace { const QString key =  "1be64cf1902d6591b23a204618b08468"; }
 
 WeatherReceiver::WeatherReceiver()
 {
@@ -23,20 +23,17 @@ void WeatherReceiver::setWeatherData(WeatherData* weatherData)
 
 void WeatherReceiver::getCurrent()
 {
-    //http://openweathermap.org/img/w/04n.png
+    qDebug () << "parser.getWeatherData()->location()" << parser.getWeatherData()->location();
 
-    //    networkRequest.setRawHeader("x-rapidapi-host", "community-open-weather-map.p.rapidapi.com");
-    //    networkRequest.setRawHeader("x-rapidapi-key", key);
+    networkRequest.setUrl(QUrl("https://api.openweathermap.org/data/2.5/find?q=" + parser.getWeatherData()->location() + "&units=metric&appid=" + key));
+    QNetworkReply *reply = manager->get(networkRequest);
+    connect(reply, &QIODevice::readyRead, this, [=] { parser.parse(reply->readAll()); });
+}
 
-    //    networkRequest.setUrl(QUrl("https://community-open-weather-map.p.rapidapi.com/weather?units=metric&q=" + parser.getWeatherData()->location()));
-
-    //    QNetworkReply *reply = manager->get(networkRequest);
-
-    //    connect(reply, &QIODevice::readyRead, this, [=] { parser.parse(weatherData, reply->readAll()); });
-
-
-  // parser.parse("{\"coord\":{\"lon\":24.71,\"lat\":48.92},\"weather\":[{\"id\":804,\"main\":\"Clouds\",\"description\":\"overcast clouds\",\"icon\":\"04n\"}],\"base\":\"stations\",\"main\":{\"temp\":7.84,\"feels_like\":6.49,\"temp_min\":7.84,\"temp_max\":7.84,\"pressure\":1023,\"humidity\":86,\"sea_level\":1023,\"grnd_level\":992},\"wind\":{\"speed\":0.51,\"deg\":170},\"clouds\":{\"all\":99},\"dt\":1589673389,\"sys\":{\"country\":\"UA\",\"sunrise\":1589682983,\"sunset\":1589738338},\"timezone\":10800,\"id\":707471,\"name\":\"" + parser.getWeatherData()->location() +"\",\"cod\":200}");
-    parser.parse("{\n    \"message\": \"You have exceeded the DAILY quota for Basic on your current plan, BASIC. Upgrade your plan at https://rapidapi.com/community/api/open-weather-map\"\n}\n");
+void WeatherReceiver::getForecast(int daysCount)
+{
+    //cnt=10
+    //community-open-weather-map.p.rapidapi.com/forecast/daily?q=
 }
 
 QStringList WeatherReceiver::recentLocations() const
@@ -48,3 +45,6 @@ bool WeatherReceiver::recentLocationsExists() const
 {
     return !parser.getWeatherData()->recentLocations().isEmpty();
 }
+
+
+
