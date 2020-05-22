@@ -8,12 +8,13 @@ Page {
     id: page
     property alias errorText: errorText.text
 
+    // update and show buttons with recent citiec names, click a button shows weather forecast page for this city
     function updateRecent() {
         listModel.clear()
         weatherReceiver.setWeatherData(weatherData)
 
         weatherReceiver.recentLocations().forEach(function(item) {
-            listModel.append({ name: item })
+            listModel.append({ name: item }) // fill the model
         });
 
         recentText.visible = weatherReceiver.recentLocationsExists()
@@ -58,6 +59,7 @@ Page {
                 fontSize: sp(12)
             }
 
+            // Add City label
             AppText {
                 id: appText
                 width: parent.width
@@ -66,11 +68,13 @@ Page {
                 fontSize: sp(22)
             }
 
+            // Add City edit (type city in this control)
             AppTextField {
                 id: cityEdit
                 width: page.width / 1.3
             }
 
+            // Add City button
             AppButton {
                 id: appButton
                 text:  qsTr("Add")
@@ -86,6 +90,7 @@ Page {
                 }
             }
 
+            // REcent City label
             AppText {
                 id: recentText
                 width: parent.width
@@ -93,6 +98,7 @@ Page {
                 fontSize: sp(12)
             }
 
+            // Recent cities list
             AppListView {
                 id: appListView
 

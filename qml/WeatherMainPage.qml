@@ -16,6 +16,7 @@ Page {
         page.visible = weatherData.visible
     }
 
+    // get full weather forecast
     function getData(location) {
         weatherData.location = location
         weatherReceiver.getWeather()
@@ -53,6 +54,7 @@ Page {
         y: dp(10)
         spacing: dp(10)
 
+        // Curren time
         AppText {
             id: timeLabel
 
@@ -68,6 +70,7 @@ Page {
             }
         }
 
+        // Location (city) for which weather foreast is shown
         AppText {
             id: cityText
             text: weatherData.location
@@ -95,11 +98,13 @@ Page {
         id: col
         anchors.centerIn: parent
 
+         // Humidity info
          AppText {
              text: qsTr("Humidity") + " " + weatherData.humidity + "%"
              anchors.horizontalCenter: parent.horizontalCenter
          }
 
+        // Temperature info
         AppText {
             id: tempText
 
@@ -134,6 +139,7 @@ Page {
             }
         }
 
+        // Current weather description. for example "Clear" or "Rain"
         AppText {
             id: descText
             text: today.description
@@ -150,6 +156,7 @@ Page {
         }
     }
 
+    // Weather forecast for 5 days
     Grid {
         id: bottomGrid
 

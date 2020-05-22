@@ -5,6 +5,9 @@
 
 #include "settings.h"
 
+/*!
+ * \brief The Current weather data
+ */
 struct CurrentData
 {
     double currentTemperature = 0;
@@ -14,6 +17,9 @@ struct CurrentData
     QString error;
 };
 
+/*!
+ * \brief The Forecast weather data
+ */
 struct ForecastData
 {
     ForecastData(const QString& d, const QString& desc, double minTemp, double maxTemp) :
@@ -26,6 +32,10 @@ struct ForecastData
     QString day;
     QString description;
 };
+
+/*!
+ * \brief The WeatherData class intended forto work with actual weather data
+ */
 
 class WeatherData : public QObject
 {

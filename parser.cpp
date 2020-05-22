@@ -8,6 +8,8 @@
 #include "weatherdata.h"
 #include "utils.h"
 
+#include <QDebug>
+
 void Parser::parseCurrent(const QString &content)
 {
     CurrentData data;
@@ -16,6 +18,7 @@ void Parser::parseCurrent(const QString &content)
     const QJsonObject& jsonObject = jsonResponse.object();
     const QJsonArray& list = jsonObject["list"].toArray();
 
+    // "cod" return not a 0 in case of error
     if(jsonObject["cod"].toInt() != 0)
     {
         data.error = jsonObject["message"].toString();
@@ -71,7 +74,7 @@ void Parser::parseForecast(const QString &content)
         day = time.day;
     }
 
-    double minTemperature = 90., maxTemperature = -90.;
+    double minTemperature = 90., maxTemperature = -90.; // 90, -90 just unreachable temparature value
 
     for(const auto& val: list)
     {

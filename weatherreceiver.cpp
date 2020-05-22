@@ -21,8 +21,8 @@ void WeatherReceiver::getWeather()
         connect(reply, &QIODevice::readyRead, this, [=] { (parser.*parse)(reply->readAll()); });
     };
 
-    request(urlParts[0] + "find" + urlParts[1], &Parser::parseCurrent);
-    request(urlParts[0] + "forecast" + urlParts[1], &Parser::parseForecast);
+    request(urlParts[0] + "find" + urlParts[1], &Parser::parseCurrent);  // make request for current weather
+    request(urlParts[0] + "forecast" + urlParts[1], &Parser::parseForecast); // make request for weather forecast for 5 days
 }
 
 WeatherReceiver::WeatherReceiver()

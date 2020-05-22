@@ -6,6 +6,9 @@
 
 namespace Utils
 {
+/*!
+ * \brief The Time struct holds current time info
+ */
 struct Time
 {
     Time (const QString& d, const QString& m, const QString& y) :
@@ -15,6 +18,11 @@ struct Time
     QString day, month, year;
 };
 
+/*!
+ * \brief convert unix time digits int hunman readable time
+ * \param unixTime
+ * \return current time info in Time struct
+ */
 static const Time timeStrFromUnixTime(unsigned int unixTime)
 {
     QDateTime timestamp;
