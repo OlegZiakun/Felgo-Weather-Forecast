@@ -72,7 +72,8 @@ void Parser::parseForecast(const QString &content)
         day = time.day;
     }
 
-    double minTemperature = 90., maxTemperature = -90.; // 90, -90 just unreachable temparature value
+    constexpr double unreachableTemparature = 90.; // just unreachable temparature value to initialize min/max variables
+    double minTemperature = unreachableTemparature, maxTemperature = -unreachableTemparature;
 
     for(const auto& val: list)
     {
@@ -93,8 +94,8 @@ void Parser::parseForecast(const QString &content)
             forecastData.push_back(ForecastData(day + "/" + time.month, description, minTemperature, maxTemperature));
 
             day = time.day;
-            minTemperature = 90.;
-            maxTemperature = -90.;
+            minTemperature = unreachableTemparature;
+            maxTemperature = -unreachableTemparature;
         }
     }
 

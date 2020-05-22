@@ -168,7 +168,7 @@ private:
     QStringList descriptionList;
     QVector<double> minTemperatures;
     QVector<double> maxTemperatures;
-    const QHash<QString, QString> descriptionIcon = { {"Clear", "\uf185"}, {"Clouds", "\uf0c2"}, {"Rain", "\uf0e9"} };
+    const QHash<QString, QString> descriptionIcon = { {"Clear", "\uf185"}, {"Clouds", "\uf0c2"}, {"Rain", "\uf0e9"}, {"Haze", "\uf0c2"} };
 };
 
 #endif // WEATHERDATA_H

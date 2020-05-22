@@ -17,6 +17,7 @@ void Settings::saveLocation(const QString &location)
 {
     QStringList locationsList;
     int locationsCount = value("locations/count", 0).toInt();
+    constexpr int maxRecentLocationsCount = 6;
 
     for(int i = 0; i < locationsCount; ++i)
     {
@@ -26,7 +27,7 @@ void Settings::saveLocation(const QString &location)
             return;
     }
 
-    if(locationsCount < 6)
+    if(locationsCount < maxRecentLocationsCount)
     {
         setValue("locations/count", ++locationsCount);
         setValue("locations/" + QString::number(locationsCount), location);
