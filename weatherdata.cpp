@@ -11,10 +11,6 @@ WeatherData::WeatherData()
         minTemperatures.push_back(0);
         maxTemperatures.push_back(0);
     }
-
-    descriptionIcon["Clear"] = "\uf185";
-    descriptionIcon["Clouds"] = "\uf0c2";
-    descriptionIcon["Rain"] = "\uf0e9";
 }
 
 void WeatherData::update(const CurrentData &data)

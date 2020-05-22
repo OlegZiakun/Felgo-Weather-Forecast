@@ -79,7 +79,6 @@ void Parser::parseForecast(const QString &content)
         const Utils::Time time = Utils::timeStrFromUnixTime(currentVal["dt"].toInt());
         const QJsonObject& main = currentVal["main"].toObject();
         const QJsonArray& weather = currentVal["weather"].toArray();
-
         QString description;
 
         if(weather.size() > 0)

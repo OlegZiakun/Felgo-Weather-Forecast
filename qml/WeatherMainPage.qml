@@ -96,7 +96,7 @@ Page {
         anchors.centerIn: parent
 
          AppText {
-             text: "Humidity " + weatherData.humidity + "%"
+             text: qsTr("Humidity") + " " + weatherData.humidity + "%"
              anchors.horizontalCenter: parent.horizontalCenter
          }
 

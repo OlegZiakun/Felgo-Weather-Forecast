@@ -15,7 +15,6 @@ QStringList Settings::getLocations() const
 
 void Settings::saveLocation(const QString &location)
 {
-   //clear(); return;
     QStringList locationsList;
     int locationsCount = value("locations/count", 0).toInt();
 

@@ -10,7 +10,7 @@ using parsePtr = void (Parser::*) (const QString&);
 
 void WeatherReceiver::getWeather()
 {
-    const QString key =  "1be64cf1902d6591b23a204618b08468"; // you can add your Open Weather Map key here
+    const QString key = "1be64cf1902d6591b23a204618b08468"; // you can add your Open Weather Map key here
     const QStringList urlParts = { "https://api.openweathermap.org/data/2.5/", "?q=" + parser.getWeatherData()->location() + "&units=metric&appid=" + key };
 
     const auto request = [this] (const QString& request, parsePtr parse)
