@@ -8,8 +8,6 @@
 #include "weatherdata.h"
 #include "utils.h"
 
-#include <QDebug>
-
 void Parser::parseCurrent(const QString &content)
 {
     CurrentData data;
