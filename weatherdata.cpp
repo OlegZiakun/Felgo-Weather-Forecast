@@ -138,19 +138,19 @@ void WeatherData::setForecastDay4(const QString& value){ setForecastStrVal(daysL
 QString WeatherData::forecastDay5() const { return daysList[4]; }
 void WeatherData::setForecastDay5(const QString& value) { setForecastStrVal(daysList[4], value); }
 
-QString WeatherData::forecastDescription1() const { return descriptionIcon[descriptionList[0]]; }
+QString WeatherData::forecastDescription1() const { return descriptionIcons[descriptionList[0]]; }
 void WeatherData::setForecastDescription1(const QString& value) { setForecastStrVal(descriptionList[0], value); }
 
-QString WeatherData::forecastDescription2() const { return descriptionIcon[descriptionList[1]]; }
+QString WeatherData::forecastDescription2() const { return descriptionIcons[descriptionList[1]]; }
 void WeatherData::setForecastDescription2(const QString& value) { setForecastStrVal(descriptionList[1], value); }
 
-QString WeatherData::forecastDescription3() const { return descriptionIcon[descriptionList[2]]; }
+QString WeatherData::forecastDescription3() const { return descriptionIcons[descriptionList[2]]; }
 void WeatherData::setForecastDescription3(const QString& value) { setForecastStrVal(descriptionList[2], value); }
 
-QString WeatherData::forecastDescription4() const { return descriptionIcon[descriptionList[3]]; }
+QString WeatherData::forecastDescription4() const { return descriptionIcons[descriptionList[3]]; }
 void WeatherData::setForecastDescription4(const QString& value) { setForecastStrVal(descriptionList[3], value); }
 
-QString WeatherData::forecastDescription5() const { return descriptionIcon[descriptionList[4]]; }
+QString WeatherData::forecastDescription5() const { return descriptionIcons[descriptionList[4]]; }
 void WeatherData::setForecastDescription5(const QString& value) { setForecastStrVal(descriptionList[4], value); }
 
 double WeatherData::forecastMinTemperature1() const { return minTemperatures[0]; }
