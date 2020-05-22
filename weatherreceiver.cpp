@@ -3,13 +3,27 @@
 #include <QNetworkReply>
 #include <QUrl>
 
-#include <QDebug>
-
 #include "weatherdata.h"
 
 using namespace std;
+using parsePtr = void (Parser::*) (const QString&);
 
-namespace { const QString key =  "1be64cf1902d6591b23a204618b08468"; }
+void WeatherReceiver::getWeather()
+{
+    const QString key =  "1be64cf1902d6591b23a204618b08468"; // you can add your Open Weather Map key here
+    const QStringList urlParts = { "https://api.openweathermap.org/data/2.5/", "?q=" + parser.getWeatherData()->location() + "&units=metric&appid=" + key };
+
+    const auto request = [this] (const QString& request, parsePtr parse)
+    {
+        networkRequest.setUrl(QUrl(request));
+        QNetworkReply *reply = manager->get(networkRequest);
+
+        connect(reply, &QIODevice::readyRead, this, [=] { (parser.*parse)(reply->readAll()); });
+    };
+
+    request(urlParts[0] + "find" + urlParts[1], &Parser::parseCurrent);
+    request(urlParts[0] + "forecast" + urlParts[1], &Parser::parseForecast);
+}
 
 WeatherReceiver::WeatherReceiver()
 {
@@ -19,23 +33,6 @@ WeatherReceiver::WeatherReceiver()
 void WeatherReceiver::setWeatherData(WeatherData* weatherData)
 {
     parser.setWeatherData(weatherData);
-}
-
-
-void WeatherReceiver::getCurrent()
-{
-    networkRequest.setUrl(QUrl("https://api.openweathermap.org/data/2.5/find?q=" + parser.getWeatherData()->location() + "&units=metric&appid=" + key));
-    QNetworkReply *reply = manager->get(networkRequest);
-    connect(reply, &QIODevice::readyRead, this, [=] { parser.parseCurrent(reply->readAll()); });
-
-    getForecast();
-}
-
-void WeatherReceiver::getForecast()
-{
-    networkRequest.setUrl(QUrl("https://api.openweathermap.org/data/2.5/forecast/?q=" + parser.getWeatherData()->location() + "&units=metric&appid=" + key));
-    QNetworkReply *reply = manager->get(networkRequest);
-    connect(reply, &QIODevice::readyRead, this, [=] { parser.parseForecast(reply->readAll()); });
 }
 
 QStringList WeatherReceiver::recentLocations() const

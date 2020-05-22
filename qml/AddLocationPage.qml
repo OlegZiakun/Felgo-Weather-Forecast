@@ -78,9 +78,11 @@ Page {
                 anchors.right: parent.right
 
                 onClicked: {
-                    weatherMainPage.getData(cityEdit.text)
-                    page.visible = false
-                    weatherMainPage.visible = (weatherMainPage.error === "")
+                    if(cityEdit.text !== "") {
+                        weatherMainPage.getData(cityEdit.text)
+                        page.visible = false
+                        weatherMainPage.visible = (weatherMainPage.error === "")
+                    }
                 }
             }
 
@@ -141,7 +143,7 @@ Page {
                                     weatherMainPage.getData(name)
                                     weatherMainPage.visible = (weatherMainPage.error === "")
                                 }
-                                onPressedButtonsChanged: {  pressed ? rect.color = "#1AD6FD" : rect.color = "transparent" }
+                                onPressedButtonsChanged: { pressed ? rect.color = "#1AD6FD" : rect.color = "transparent" }
                             }
                         }
                     }

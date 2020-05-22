@@ -18,7 +18,7 @@ Page {
 
     function getData(location) {
         weatherData.location = location
-        weatherReceiver.getCurrent()
+        weatherReceiver.getWeather()
     }
 
     property var alldata: [
@@ -94,6 +94,11 @@ Page {
     Column {
         id: col
         anchors.centerIn: parent
+
+         AppText {
+             text: "Humidity " + weatherData.humidity + "%"
+             anchors.horizontalCenter: parent.horizontalCenter
+         }
 
         AppText {
             id: tempText

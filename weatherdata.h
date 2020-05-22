@@ -27,8 +27,6 @@ struct ForecastData
     QString description;
 };
 
-#define SET_FORECAST_DAY(n) setForecastDay##n(data[n - 1].day)
-
 class WeatherData : public QObject
 {
     Q_OBJECT

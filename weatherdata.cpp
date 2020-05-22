@@ -1,7 +1,5 @@
 #include "weatherdata.h"
 
-#include <QDebug>
-
 namespace { constexpr int forecastDaysCount = 5; }
 
 WeatherData::WeatherData()
@@ -26,8 +24,6 @@ void WeatherData::update(const CurrentData &data)
     setVisible(visible);
     setError(data.error);
 
-     qDebug() << "============>" << data.description;
-
     if(visible)
     {
         settings.saveLocation(locationStr);
@@ -43,11 +39,6 @@ void WeatherData::update(const QVector<ForecastData> &data)
 {
     if(data.size() != forecastDaysCount)
         return;
-
-    for(const auto& d: data)
-    {
-        qDebug() << "============>" <<  data.size() << " " << d.day << "tempMin" << d.minTemperature << "tempMax" << d.maxTemperature;
-    }
 
     setForecastDay1(data[0].day); setForecastDay2(data[1].day); setForecastDay3(data[2].day); setForecastDay4(data[3].day); setForecastDay5(data[4].day);
     setForecastDescription1(data[0].description); setForecastDescription2(data[1].description); setForecastDescription3(data[2].description);  setForecastDescription4(data[3].description); setForecastDescription5 (data[4].description);
