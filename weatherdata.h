@@ -6,7 +6,7 @@
 #include "settings.h"
 
 /*!
- * \brief The Current weather data
+ * \brief Current weather data
  */
 struct CurrentData
 {
@@ -19,7 +19,7 @@ struct CurrentData
 };
 
 /*!
- * \brief The Forecast weather data
+ * \brief Forecast weather data
  */
 struct ForecastData
 {
@@ -35,7 +35,7 @@ struct ForecastData
 };
 
 /*!
- * \brief The WeatherData class intended forto work with actual weather data
+ * \brief WeatherData class intended for work with actual weather data
  */
 
 class WeatherData : public QObject

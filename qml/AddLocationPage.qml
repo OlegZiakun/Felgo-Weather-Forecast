@@ -9,7 +9,7 @@ Page {
     property alias errorText: errorText.text
     visible: !weatherMainPage.visible
 
-    // update and show buttons with recent citiec names, click a button shows weather forecast page for this city
+    // update and show buttons with recent cities names, click a button shows weather forecast page for this city
     function updateRecent() {
         listModel.clear()
         weatherReceiver.setWeatherData(weatherData)
@@ -24,7 +24,7 @@ Page {
     Component.onCompleted: updateRecent()
     onVisibleChanged: updateRecent()
 
-    // Background
+    // background
     Rectangle {
         x: -page.safeArea.x
         y: -page.safeArea.y
@@ -60,7 +60,7 @@ Page {
                 fontSize: sp(12)
             }
 
-            // Add City label
+            // add city label
             AppText {
                 id: appText
                 width: parent.width
@@ -69,13 +69,13 @@ Page {
                 fontSize: sp(22)
             }
 
-            // Add City edit (type city in this control)
+            // add city edit (type city in this control)
             AppTextField {
                 id: cityEdit
                 width: page.width / 1.3
             }
 
-            // Add City button
+            // add city button
             AppButton {
                 id: appButton
                 text:  qsTr("Add")
@@ -88,7 +88,7 @@ Page {
                 }
             }
 
-            // REcent City label
+            // recent City label
             AppText {
                 id: recentText
                 width: parent.width
@@ -96,7 +96,7 @@ Page {
                 fontSize: sp(12)
             }
 
-            // Recent cities list
+            // recent cities list
             AppListView {
                 id: appListView
 

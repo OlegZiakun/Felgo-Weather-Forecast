@@ -7,7 +7,7 @@ class Settings: public QSettings
 {
 public slots:
     /*!
-     * \brief save all the most recent locations, up to 6 locations
+     * \brief save all the most recent locations
      */
    void saveLocation(const QString &location);
    /*!

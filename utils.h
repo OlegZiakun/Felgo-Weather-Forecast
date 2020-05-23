@@ -19,7 +19,7 @@ struct Time
 };
 
 /*!
- * \brief convert unix time digits int hunman readable time
+ * \brief converts unix time digits into hunman readable time
  * \param unixTime
  * \return current time info in Time struct
  */
