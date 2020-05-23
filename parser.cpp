@@ -11,19 +11,12 @@
 void Parser::parseCurrent(const QString &content)
 {
     CurrentData data;
-
     const QJsonDocument& jsonResponse = QJsonDocument::fromJson(content.toUtf8());
     const QJsonObject& jsonObject = jsonResponse.object();
     const QJsonArray& list = jsonObject["list"].toArray();
 
-    // "cod" return not a 0 in case of error
-    if(jsonObject["cod"].toInt() != 0)
-    {
-        data.error = jsonObject["message"].toString();
-        weatherData->update(data);
-
+    if(jsonObject["cod"].toInt() != 0  || jsonObject["cod"].toString() != "200")
         return;
-    }
 
     if(list.size() > 0)
     {
@@ -43,7 +36,7 @@ void Parser::parseCurrent(const QString &content)
         data.country = sys["country"].toString();
     }
     else
-        data.error = QObject::tr("City doesn't exists");
+        return;
 
     weatherData->update(data);
 }
@@ -54,7 +47,7 @@ void Parser::parseForecast(const QString &content)
     const QJsonObject& jsonObject = jsonResponse.object();
     const QJsonArray& list = jsonObject["list"].toArray();
 
-    if(jsonObject["cod"].toInt() != 0)
+    if(jsonObject["cod"].toInt() != 0 || jsonObject["cod"].toString() != "200")
     {
         CurrentData data;
         data.error = jsonObject["message"].toString();

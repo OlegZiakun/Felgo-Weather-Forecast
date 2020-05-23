@@ -7,6 +7,7 @@ import Felgo 3.0
 Page {
     id: page
     property alias errorText: errorText.text
+    visible: !weatherMainPage.visible
 
     // update and show buttons with recent citiec names, click a button shows weather forecast page for this city
     function updateRecent() {
@@ -82,11 +83,8 @@ Page {
                 anchors.right: parent.right
 
                 onClicked: {
-                    if(cityEdit.text !== "") {
+                    if(cityEdit.text !== "")
                         weatherMainPage.getData(cityEdit.text)
-                        page.visible = false
-                        weatherMainPage.visible = (weatherMainPage.error === "")
-                    }
                 }
             }
 
@@ -145,10 +143,7 @@ Page {
                                 propagateComposedEvents: true
                                 cursorShape: Qt.PointingHandCursor
 
-                                onClicked: {
-                                    weatherMainPage.getData(name)
-                                    weatherMainPage.visible = (weatherMainPage.error === "")
-                                }
+                                onClicked: weatherMainPage.getData(name)
                                 onPressedButtonsChanged: { pressed ? rect.color = "#1AD6FD" : rect.color = "transparent" }
                             }
                         }

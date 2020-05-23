@@ -5,16 +5,12 @@ import Felgo 3.0
 
 Page {
     id: page
-    visible: weatherData.visible
+    visible: weatherData.visible && weatherData.error === ""
     property var today: alldata[currentIndex]
     property int currentIndex: 0
     property string error: weatherData.error
 
-    onErrorChanged: {
-        addLocationPage.errorText = error
-        addLocationPage.visible = !weatherData.visible
-        page.visible = weatherData.visible
-    }
+    onErrorChanged: addLocationPage.errorText = error
 
     // get full weather forecast
     function getData(location) {
@@ -87,7 +83,7 @@ Page {
                     propagateComposedEvents: true
                     cursorShape: Qt.PointingHandCursor
 
-                    onClicked: { page.visible = false; addLocationPage.visible = true }
+                    onClicked: weatherData.visible = false
                     onPressedButtonsChanged: {  pressed ? rect.color = "#1AD6FD" : rect.color = "transparent" }
                 }
             }
