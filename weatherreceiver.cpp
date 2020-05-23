@@ -5,7 +5,6 @@
 
 #include "weatherdata.h"
 
-using namespace std;
 using parsePtr = void (Parser::*) (const QString&);
 
 void WeatherReceiver::getWeather()
