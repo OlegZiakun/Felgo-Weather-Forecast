@@ -19,6 +19,7 @@ void WeatherData::update(const CurrentData &data)
 
     setVisible(visible);
     setError(data.error);
+    setLocation(data.location);
 
     if(visible)
     {

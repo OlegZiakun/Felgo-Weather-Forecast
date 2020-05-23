@@ -13,8 +13,9 @@ struct CurrentData
     double currentTemperature = 0;
     int humidity = 0;
     QString country;
+    QString location;
     QString description;
-    QString error;
+    QString error;  
 };
 
 /*!

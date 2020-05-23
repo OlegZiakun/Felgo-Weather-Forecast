@@ -25,6 +25,8 @@ void Parser::parseCurrent(const QString &content)
         const QJsonObject& sys = mainList["sys"].toObject();
         const QJsonArray& weather = mainList["weather"].toArray();
 
+        data.location = mainList["name"].toString();
+
         if(weather.size() > 0)
         {
             const QJsonObject& mainWeather  = weather[0].toObject();
@@ -92,7 +94,7 @@ void Parser::parseForecast(const QString &content)
         }
     }
 
-     weatherData->update(forecastData);
+    weatherData->update(forecastData);
 }
 
 void Parser::setWeatherData(WeatherData* weatherData)
